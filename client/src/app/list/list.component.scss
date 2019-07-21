@@ -1,0 +1,13 @@
+table {
+    th {
+        &.mat-column-_action {
+            width: 200px;
+        }
+    }
+
+    td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 20px;
+    }
+}
