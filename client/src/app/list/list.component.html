@@ -1,6 +1,6 @@
 <h3>List</h3>
 
-<table mat-table [dataSource]="dataSource$ | async" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="_action">
         <th mat-header-cell *matHeaderCellDef></th>
@@ -21,3 +21,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator (page)="onPageChange($event)" [length]="total$ | async" [hidePageSize]="true" [pageSize]="10" [pageSizeOptions]="[10]"></mat-paginator>

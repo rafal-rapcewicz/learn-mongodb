@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import { MongoError } from 'mongodb';
+import { Cursor, MongoError } from 'mongodb';
 import path from 'path';
 import cors from 'cors';
 import * as db from './db';
@@ -22,20 +22,41 @@ app.get('/airbnb', (request: Request, response: Response) => {
     const skip = parseInt(request.query.skip);
 
     if (database) {
-        database
+        const cursor: Cursor<any> = database
             .collection(collection)
-            .find({})
-            .skip(skip)
-            .limit(10)
-            .toArray((error: MongoError, result: any[]) => {
-                if (error) {
-                    console.log(error);
-                    return;
-                }
+            .find({});
 
-                console.log(result);
-                response.json(result);
+        Promise.all([
+            cursor
+                .skip(skip)
+                .limit(10)
+                .toArray(),
+            cursor
+                .count()
+        ]).then(([data, total]) => {
+            response.json({
+                data,
+                total
+            })
+        },
+            error => {
+                console.log(error);
             });
+
+        // database
+        //     .collection(collection)
+        //     .find({})
+        //     .skip(skip)
+        //     .limit(10)
+        //     .toArray((error: MongoError, result: any[]) => {
+        //         if (error) {
+        //             console.log(error);
+        //             return;
+        //         }
+
+        //         console.log(result);
+        //         response.json(result);
+        //     });
     }
 });
 
