@@ -1,0 +1,23 @@
+<h3>Edit</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <input matInput formControlName="name" placeholder="name">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="notes" placeholder="notes">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="property_type" placeholder="property_type">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="room_type" placeholder="room_type">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="house_rules" placeholder="house_rules">
+    </mat-form-field>
+    <div class="actions">
+        <button mat-raised-button type="submit">Submit</button>
+        <button routerLink="/list" mat-button>Back</button>
+    </div>
+</form>
